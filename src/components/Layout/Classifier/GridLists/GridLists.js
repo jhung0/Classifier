@@ -43,14 +43,18 @@ const styles = {
  * A simple example of a scrollable `GridList` containing a [Subheader](/#/components/subheader).
  */
 const GridLists = (props) => (
- <Aux>
-    <div style={styles.wrapper}>
-        <GridList noPicturesDisplayed={props.noPicturesDisplayed}/>
-    </div>
-    <div style={styles.wrapper2}>
-        <div style={styles.flexContainer1}> <GridList noPicturesDisplayed='0'/> </div>
-        <div style={styles.flexContainer2}> <GridList noPicturesDisplayed='0'/> </div>
-    </div>
+    <Aux>
+        <div style={styles.wrapper} >
+                <GridList 
+                    type='mainGrid'
+                    noPicturesDisplayed={props.noPicturesDisplayed}
+                    uploadedPictures={props.uploadedPictures}   
+                />
+        </div>
+        <div style={styles.wrapper2}>
+            <div style={styles.flexContainer1}> <GridList type='secondGrid' noPicturesDisplayed='0' uploadedPictures={props.uploadedPictures} /> </div>
+            <div style={styles.flexContainer2}> <GridList  type='thirdGrid' noPicturesDisplayed='0'uploadedPictures={props.uploadedPictures} /> </div>
+        </div>
   </Aux>
 );
  

@@ -5,12 +5,15 @@ import { MuiThemeProvider } from 'material-ui';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 class App extends Component {
+  
   render () {
+    
     const muiTheme = getMuiTheme({
       appBar: {
         height: 60,
       },
     });
+    
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout>

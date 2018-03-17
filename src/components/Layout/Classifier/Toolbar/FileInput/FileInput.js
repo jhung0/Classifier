@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
@@ -16,18 +16,57 @@ const styles = {
       opacity: 0,
     },
   };
-  
-const Input = (props) => {
-    return(
-        <RaisedButton 
-            variant='raised'
-            label="Select Folder"
-            labelPosition="before"
-            containerElement="label"
-        >
-            <input style={styles.exampleImageInput} label='Select Pictures' type="file"  accept="image/*"/>
-        </RaisedButton>
-    ); 
+
+
+class Input extends Component {
+    
+    
+    // Reads data from input 
+    handleChange = (files) => {
+        let my = this
+        const noImages = files.length;
+        for(let i = 0; i < noImages; i++){
+          const reader = new FileReader();
+          const image = files[i];
+          // Closure to capture the file information.
+          reader.onload = (function(theFile,my) {
+                              const fileName = theFile.webkitRelativePath;
+                              return function(e) {
+                                const imData = {fileName: fileName, src: e.target.result};
+                                my.props.uploadPictures(imData)
+                              };
+          })(image, my);
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(image);
+        };
+      };       
+         
+        
+    _addDirectory(node) {
+        if (node) {
+          node.directory = true;
+          node.webkitdirectory = true;
+        }
+      }
+    
+    render (){
+        return(
+            <RaisedButton 
+                variant='raised'
+                label="Select Folder"
+                labelPosition="before"
+                containerElement="label"
+            >
+                <input 
+                    style={styles.exampleImageInput}
+                    type="file"
+                    accept="image/*"
+                    onChange={ (e) => this.handleChange(e.target.files) }
+                    ref={node => this._addDirectory(node)}
+                />
+            </RaisedButton>
+        ); 
+    } 
 };
  
 export default Input;
