@@ -3,6 +3,9 @@ import Layout from './components/Layout/Layout';
 import Classifier from './components/Layout/Classifier/Classifier';
 import { MuiThemeProvider } from 'material-ui';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 
 class App extends Component {
   
@@ -24,4 +27,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App);

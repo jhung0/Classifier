@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Aux from '../../../../../hoc/Aux';
+import Image from './Image/Image'
 
 
 class GridListExampleSimple extends Component{
@@ -11,12 +12,10 @@ class GridListExampleSimple extends Component{
         picturesThere = true;
       }
       const images = picturesThere ? (
-        this.props.uploadedPictures.slice(1, this.props.noPicturesDisplayed).map((image, i) => (              
-          <img 
-            key={image.fileName}
-            src={image.src}
-            width={48}
-            alt=""
+        this.props.uploadedPictures.slice(0, this.props.noPicturesDisplayed).map((image, i) => (              
+          <Image 
+            myKey={image.fileName}
+            mySrc={image.src}
            />
     ))
 

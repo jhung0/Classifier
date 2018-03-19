@@ -17,7 +17,7 @@ const styles = {
  */
 export default class SelectFieldExampleSimple extends Component {
   state = {
-    value: 1,
+    value: 5,
   };
 
   handleChange = (event, index, value) =>{
@@ -33,7 +33,6 @@ export default class SelectFieldExampleSimple extends Component {
           value={this.state.value}
           onChange={this.handleChange}
           style={styles.customWidth}
-
         >
           <MenuItem value={20} primaryText="20" />
           <MenuItem value={10} primaryText="10" />
