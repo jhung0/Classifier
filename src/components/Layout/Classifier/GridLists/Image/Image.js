@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
-import ItemTypes from '../../ItemTypes';
+import ItemTypes from '../../../../ItemTypes';
 
 //const handlePictureDrag = this.props.handlePictureDrag
 
@@ -12,8 +12,10 @@ const imSource = {
              };
     },
     endDrag(props, monitor, component){
-        const imInfo = {target: monitor.getDropResult().grid,  origin: props.grid, fileName: props.fileName }
-        component.imageHandlePictureDrag(imInfo)
+        if(monitor.didDrop()){
+          const imInfo = {target: monitor.getDropResult().grid,  origin: props.grid, fileName: props.fileName }
+          component.imageHandlePictureDrag(imInfo)
+        }
     }
 };
   
@@ -31,7 +33,7 @@ class Image extends Component {
     
     render(){
       const { connectDragSource } = this.props;   
-      return  connectDragSource(<img grid={this.props.grid} fileName={this.props.fileName} src={this.props.src} width={48} alt=""/>)       
+      return  connectDragSource(<img grid={this.props.grid} src={this.props.src} width={48} alt=""/>)       
   }
 };
 

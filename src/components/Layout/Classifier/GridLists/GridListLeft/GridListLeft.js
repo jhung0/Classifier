@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Image from '../Image/Image'
 import { DropTarget } from 'react-dnd';
-import ItemTypes from '../../ItemTypes'
+import ItemTypes from '../../../../ItemTypes'
 
 
 const styles = {
@@ -24,15 +24,18 @@ const gridTarget1 = {
 function collect1(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver()
+    isOver: monitor.isOver(),
   };
 }
 
 class GridListSecond extends Component{
    
   render() {
-      const {connectDropTarget, isOver } = this.props;
-
+      const {connectDropTarget, isOver} = this.props;
+      let backgroundColor = '#f1f1f1'
+      if (isOver) {
+        backgroundColor = '#B9F6CA'
+      } 
       let picturesThere = false;
       if(this.props.displayedPictures.length > 0){
         picturesThere = true;
@@ -44,7 +47,7 @@ class GridListSecond extends Component{
       ) : ( 
        <p>Please drag something here</p>
       );
-    return connectDropTarget(<div style={styles.flexContainer}> {images} </div>);
+    return connectDropTarget(<div style={{...styles.flexContainer, backgroundColor}}> {images} </div>);
     }; 
 };
 

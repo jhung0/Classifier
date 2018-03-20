@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Image from '../Image/Image'
 import { DropTarget } from 'react-dnd';
-import ItemTypes from '../../ItemTypes'
-import Constants from '../../Constants'
+import ItemTypes from '../../../../ItemTypes'
+import Constants from '../../../../Constants'
 
 
 
@@ -26,7 +26,6 @@ const gridTarget = {
 function collect(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver()
   };
 }
 
@@ -34,7 +33,7 @@ class GridListMain extends Component{
   
   render() {      
       let counter = this.props.noPicturesDisplayed;
-      const {connectDropTarget, isOver } = this.props;
+      const {connectDropTarget} = this.props;
       let picturesThere = false;
       if(this.props.noPicturesDisplayed > 0){
         picturesThere = true;

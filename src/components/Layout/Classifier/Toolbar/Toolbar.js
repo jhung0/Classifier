@@ -14,9 +14,9 @@ const ToolbarExamplesSimple = (props) => (
         </ToolbarGroup>
         
         <ToolbarGroup>
-          <FileInput uploadPictures={props.uploadPictures}/>
-          <SelectField selectNoPicAdd={props.selectNoPicAdd}/>
-          <RaisedButton onClick={() => props.FetchButtonClicked()} label="Fetch" primary={true} />
+          <FileInput uploadPicture={props.uploadPicture}/>
+          <SelectField changeNoFetch={props.changeNoFetch}/>
+          <RaisedButton onClick={() => props.fetchButtonClicked()} label="Fetch" primary={true} />
         </ToolbarGroup>
       
       </Toolbar>

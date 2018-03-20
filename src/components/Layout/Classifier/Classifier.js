@@ -3,15 +3,19 @@ import { connect } from 'react-redux';
 import Aux from '../../../hoc/Aux';
 import Toolbar from './Toolbar/Toolbar'
 import GridLists from './GridLists/GridLists'
-import Constants from './Constants'
+import Constants from '../../Constants'
 
 
 class Classifier extends Component {  
     
     state = {
         noFetch: 5,
-        noPicsTopGrid: 0,
         uploadedPictures: [],
+        noPicsGrids: {
+            top: 0,
+            left: 0,
+            right: 0    
+        },
         displayedPictures: {
             top: [],
             left: [],
@@ -20,35 +24,26 @@ class Classifier extends Component {
     };
 
     fetchButtonClicked = () => {
-        if(this.state.uploadedPictures.length === 0){
+        if(this.props.uploadedPictures.length === 0){
             alert('Please select folder with pictures');
             return
         }    
-        if(this.state.uploadedPictures.length < this.state.noPicsTopGrid + Number(this.state.noFetch)){
-            this.setState({noPicsTopGrid: this.state.uploadedPictures.length})
+        if(this.props.uploadedPictures.length < this.props.noPicsGrids['top'] + Number(this.props.noFetch)){
+            alert('There are no more pictures in your uploaded folder');
+            this.props.changeNoPicsGrid('top', this.props.uploadedPictures.length)            
             return
         }
-        if( this.state.noPicsTopGrid + Number(this.state.noFetch) > Constants.MAX_NUMBER_PICTURES_GRID){
-            this.setState({noPicsTopGrid: Constants.MAX_NUMBER_PICTURES_GRID})
+        if( this.props.noPicsGrids['top'] + Number(this.props.noFetch) > Constants.MAX_NUMBER_PICTURES_GRID){
+            alert('You have reached the maximum no of displayable pictures');
+            this.props.changeNoPicsGrid('top', Constants.MAX_NUMBER_PICTURES_GRID)
             return
         }
-
-        let newNoPictures = this.state.noPicsTopGrid + Number(this.state.noFetch);        
-        let updatePicDisp = {...this.state.displayedPictures}
-        const target = this.state.uploadedPictures.slice(0, newNoPictures);
+        let newNoPictures = this.props.noPicsGrids['top'] + Number(this.props.noFetch); 
+        let updatePicDisp = {...this.props.displayedPictures}
+        const target = this.props.uploadedPictures.slice(0, newNoPictures);
         updatePicDisp.top = target 
-        this.setState({displayedPictures: updatePicDisp})
-        this.setState({noPicsTopGrid: newNoPictures})        
-    };
-
-    selectNoPicAdd = (no) => {
-        this.setState({noFetch: no})
-    };
-
-    uploadPictures = (imData) => {
-        let newArray = [...this.state.uploadedPictures];
-        newArray.push(imData);
-        this.setState({uploadedPictures: newArray});
+        this.props.updateDisplayedPictures(updatePicDisp)
+        this.props.changeNoPicsGrid('top', newNoPictures)
     };
 
     handlePictureDrop = (imInfo) => {
@@ -56,49 +51,25 @@ class Classifier extends Component {
         if(imInfo.origin === imInfo.target){
             return null;
         }
-        //U Update Counter 
-        if(imInfo.origin === 'top'){
-            let newNoPictures = this.state.noPicsTopGrid - 1;    
-            this.setState({noPicsTopGrid: newNoPictures})        
-        }
-        if(imInfo.target === 'top'){
-            let newNoPictures = this.state.noPicsTopGrid + 1;    
-            this.setState({noPicsTopGrid: newNoPictures})        
-        }
-
-        // Find picture by file name in uploaded pictures and update target
-        const resultIndex = this.state.displayedPictures[imInfo.origin].findIndex(function( obj, index ) {
-        return obj.fileName === imInfo.fileName;
-        });
-        const result = this.state.displayedPictures[imInfo.origin][resultIndex];
-        let updatePicDisp = {...this.state.displayedPictures}
-        let target = [...this.state.displayedPictures[imInfo.target]];
-        target.push(result);
-        updatePicDisp[imInfo.target] = target
-        this.setState({displayedPictures: updatePicDisp});
-        // Delete picture from origin
-        updatePicDisp = {...this.state.displayedPictures}
-        let copyOrigin =  [...this.state.displayedPictures[imInfo.origin]];
-        if (resultIndex > -1) {
-            copyOrigin.splice(resultIndex, 1);
-            updatePicDisp[imInfo.origin] = copyOrigin;
-            this.setState({displayedPictures: updatePicDisp});
-        }
+        // Update image counter 
+        this.props.decNoPicsGrid(imInfo.origin)
+        this.props.incNoPicsGrid(imInfo.target)
+        // Put image to different grid
+        this.props.changePicturePosition(imInfo.origin, imInfo.target, imInfo.fileName)
     };
 
     render () {
-        console.log(this.state.noPicsTopGrid)
         return (
             <Aux>
                 <Toolbar 
-                    FetchButtonClicked={this.fetchButtonClicked}
-                    uploadPictures={this.uploadPictures}
-                    selectNoPicAdd={this.selectNoPicAdd}
+                    fetchButtonClicked={this.fetchButtonClicked}
+                    uploadPicture={this.props.uploadPicture}
+                    changeNoFetch={this.props.changeNoFetch}
                 />
                 <GridLists 
-                    noPicturesDisplayed={this.state.noPicsTopGrid}
+                    noPicturesDisplayed={this.props.noPicsGrids['top']}
                     handlePictureDrag={this.handlePictureDrop}                
-                    displayedPictures={this.state.displayedPictures}
+                    displayedPictures={this.props.displayedPictures}
                 />
             </Aux>
         );
@@ -107,13 +78,22 @@ class Classifier extends Component {
 
 const mapStateToProps = state => {
     return {
-        ctr: state.counter
+        noFetch: state.noFetch,
+        noPicsGrids: state.noPicsGrids,
+        uploadedPictures: state.uploadedPictures,
+        displayedPictures: state.displayedPictures
     };    
 };
 
 const mapDispatchToProps = dispatch => {
    return {
-        onIncrementCounter: () => dispatch({type: 'INCREMENT_COUNTER', val: 5})
+        changeNoFetch: (no) => dispatch({type: 'CHANGE_NO_FETCH', val: no}),
+        changeNoPicsGrid: (gridName, no) => dispatch({type: 'CHANGE_NO_PICS_GRID', grid: gridName, val: no}),
+        incNoPicsGrid: (gridName) => dispatch({type: 'INC_NO_PICS_GRID', grid: gridName}),
+        decNoPicsGrid: (gridName) => dispatch({type: 'DEC_NO_PICS_GRID', grid: gridName}),
+        uploadPicture: (img) => dispatch({type: 'UPLOAD_PICTURE', image: img}),
+        updateDisplayedPictures: (updatedState) => dispatch({type: 'UPDATE_DISP_PICS', updated: updatedState}),
+        changePicturePosition: (origin=null, target=null, filePath=null) => dispatch({type: 'CHANGE_PICTURE_POSITION', origin: origin, target: target, filePath: filePath})
    };
 };
 

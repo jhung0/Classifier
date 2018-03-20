@@ -33,7 +33,7 @@ class Input extends Component {
                               const fileName = theFile.webkitRelativePath;
                               return function(e) {
                                 const imData = {fileName: fileName, src: e.target.result};
-                                my.props.uploadPictures(imData)
+                                my.props.uploadPicture(imData)
                               };
           })(image, my);
         // Read in the image file as a data URL.

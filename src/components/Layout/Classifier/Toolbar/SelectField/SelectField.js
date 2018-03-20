@@ -22,7 +22,7 @@ export default class SelectFieldExampleSimple extends Component {
 
   handleChange = (event, index, value) =>{
     this.setState({value});
-    this.props.selectNoPicAdd(value)
+    this.props.changeNoFetch(value)
   } 
 
   render() {
