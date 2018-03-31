@@ -10,6 +10,10 @@ const styles = {
       float: 'left',
       width: '50%',
       height: '300px',
+      border: '1px solid black',
+      borderWidth: 'thin',
+      resize: 'both'
+
   },
 };
 

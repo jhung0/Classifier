@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton';
 
 const AppBarExampleIcon = () => {
     return(
-        <AppBar
+        <AppBar style={{ position: 'fixed',top: 0,left: 0, width: '100%'}}
             title=" Cell Classifier"
             iconElementLeft={<IconButton><Cake/></IconButton>}
         />        

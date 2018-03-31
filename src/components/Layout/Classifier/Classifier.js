@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Aux from '../../../hoc/Aux';
 import Toolbar from './Toolbar/Toolbar'
+import GridlistTop from './GridLists/GridListTop/GridListTop'
 import GridLists from './GridLists/GridLists'
 import Constants from '../../Constants'
 
@@ -16,11 +17,16 @@ class Classifier extends Component {
             left: 0,
             right: 0    
         },
+
+
         displayedPictures: {
             top: [],
             left: [],
             right: []
         }
+
+
+
     };
 
     fetchButtonClicked = () => {
@@ -34,7 +40,7 @@ class Classifier extends Component {
             return
         }
         if( this.props.noPicsGrids['top'] + Number(this.props.noFetch) > Constants.MAX_NUMBER_PICTURES_GRID){
-            alert('You have reached the maximum no of displayable pictures');
+            alert('You have reached the maximum number of displayable pictures');
             this.props.changeNoPicsGrid('top', Constants.MAX_NUMBER_PICTURES_GRID)
             return
         }
@@ -61,16 +67,30 @@ class Classifier extends Component {
     render () {
         return (
             <Aux>
-                <Toolbar 
-                    fetchButtonClicked={this.fetchButtonClicked}
-                    uploadPicture={this.props.uploadPicture}
-                    changeNoFetch={this.props.changeNoFetch}
-                />
-                <GridLists 
+
+
+                <div style={{ position: 'fixed',top: 60,left: 0, width: '100%'}}>
+                    <Toolbar
+                        fetchButtonClicked={this.fetchButtonClicked}
+                        uploadPicture={this.props.uploadPicture}
+                        changeNoFetch={this.props.changeNoFetch}
+                    />
+                    
+                    <GridlistTop
+                        noPicturesDisplayed={this.props.noPicsGrids.top}
+                        displayedPictures={this.props.displayedPictures.top}
+                        handlePictureDrop={this.handlePictureDrop}   
+
+                    />
+                     <GridLists 
                     noPicturesDisplayed={this.props.noPicsGrids['top']}
                     handlePictureDrag={this.handlePictureDrop}                
                     displayedPictures={this.props.displayedPictures}
                 />
+                </div>
+
+                 
+
             </Aux>
         );
     };
@@ -81,7 +101,7 @@ const mapStateToProps = state => {
         noFetch: state.noFetch,
         noPicsGrids: state.noPicsGrids,
         uploadedPictures: state.uploadedPictures,
-        displayedPictures: state.displayedPictures
+        displayedPictures: state.displayedPictures,
     };    
 };
 

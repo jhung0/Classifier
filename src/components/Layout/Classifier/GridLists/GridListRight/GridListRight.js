@@ -7,8 +7,12 @@ const styles = {
   flexContainer: {
       backgroundColor: '#f1f1f1',
       float: 'right',
-      width: '48%',
+      width: '49%',
       height: '300px',  
+      border: '1px solid black',
+      borderWidth: 'thin',
+      resize: 'both'
+
   },
 };
 

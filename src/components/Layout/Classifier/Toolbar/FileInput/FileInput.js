@@ -32,7 +32,7 @@ class Input extends Component {
           reader.onload = (function(theFile,my) {
                               const fileName = theFile.webkitRelativePath;
                               return function(e) {
-                                const imData = {fileName: fileName, src: e.target.result};
+                                const imData = {fileName: fileName, src: e.target.result, index: i};
                                 my.props.uploadPicture(imData)
                               };
           })(image, my);

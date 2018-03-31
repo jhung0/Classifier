@@ -7,7 +7,7 @@ import Appbar from './Navigation/Appbar/Appbar'
 const layout = ( props ) => (
     <Aux>
         <Appbar/>
-        <main className={classes.Content}>
+        <main className={classes.Content} >
             {props.children}
         </main>
     </Aux>

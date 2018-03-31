@@ -8,10 +8,13 @@ import Constants from '../../../../Constants'
 
 const styles = {
   wrapper: {
+      flexWwrap: 'wrap',
       width: '100%',
-      height: '200px',
-      backgroundColor: '#f1f1f1',
-      margin: '10px',
+      minHeight: '150px',
+      resize: 'both',
+      backgroundColor: '#C1C1C1',
+      overflow: 'hidden' 
+
   },   
 };
 
@@ -43,10 +46,10 @@ class GridListMain extends Component{
       }
       const images = picturesThere ? (
         this.props.displayedPictures.slice(0, counter).map((image, i) => (              
-          <Image grid='top' key={image.fileName + 'top'} fileName={image.fileName} src={image.src}  handlePictureDrag={this.props.handlePictureDrag}/>
+          <Image grid='top' key={image.fileName + 'top'} fileName={image.fileName} src={image.src}  handlePictureDrop={this.props.handlePictureDrop}/>
         ))  
       ) : (
-        <p>Please select folder and fetch pictures</p>
+        <p> Please select folder and fetch pictures </p> 
       );
     return connectDropTarget(<div style={styles.wrapper} > {images} </div>);
     }; 
