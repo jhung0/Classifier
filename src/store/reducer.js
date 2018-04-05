@@ -24,7 +24,7 @@ const reducer = (state = initalState, action) => {
       const newCat = {
         id: new_unique_id,
         name: "New category",
-        imIds: [],
+        imgHashes: [],
         color: Constants.CATEGORY_COLORS[noCats]
       };
       categoriesCopy.push(newCat);
@@ -44,6 +44,8 @@ const reducer = (state = initalState, action) => {
       let allCategories = [...state.categories];
       for (let j in allCategories) {
         if (allCategories[Number(j)].id.toString() === action.id) {
+
+          
           allCategories.splice(j, 1);
           return { ...state, categories: allCategories };
         }
@@ -53,8 +55,22 @@ const reducer = (state = initalState, action) => {
     case "UPLOAD_IMAGE":
       let imagesCopy = {...state.images};
       const id = hash(action.imInfo.src)
-      imagesCopy[id] = {...action.imInfo, accuracy: null, category: null}
+      imagesCopy[id] = {...action.imInfo, accuracy: null, category: null, color: "FFFFFF"}
       return { ...state, images: imagesCopy };
+
+    case "IM_DROPPED":
+      for (let i in state.categories) {
+        if (state.categories[Number(i)].id === action.dropInfo.catId) {
+          let imagesCopy = {...state.images};
+          let categoriesCopy = [...state.categories];
+          let color = state.categories[Number(i)].color
+          imagesCopy[action.dropInfo.imageId].color = color;
+          imagesCopy[action.dropInfo.imageId].category = action.dropInfo.catId;
+          categoriesCopy[Number(i)].imgHashes.push(action.dropInfo.imageId)
+          return { ...state, images: imagesCopy, categories: categoriesCopy};
+        }
+      }
+    break
 
     default:
       return state;

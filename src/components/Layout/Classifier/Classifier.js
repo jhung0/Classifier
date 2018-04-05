@@ -19,7 +19,9 @@ class Classifier extends Component {
   };
 
   addButtonClicked = () => {
+    console.log(this.props.categories)
     this.props.addCategory();
+    console.log(this.props.categories)
   };
 
   nameChangeHandler = (event) => {
@@ -35,28 +37,14 @@ class Classifier extends Component {
   };
 
   checkImWidth = (width) => {
-    console.log(width)
     if(width > this.state.biggestImage){
       this.setState({biggestImage: width})
     }
-    console.log(this.state.biggestImage)
   };
 
 
-  handlePictureDrop = imInfo => {
-    // Check if element origin is same as drop target
-    if (imInfo.origin === imInfo.target) {
-      return null;
-    }
-    // Update image counter
-    this.props.decNoPicsGrid(imInfo.origin);
-    this.props.incNoPicsGrid(imInfo.target);
-    // Put image to different grid
-    this.props.changePicturePosition(
-      imInfo.origin,
-      imInfo.target,
-      imInfo.fileName
-    );
+  handleImageDrop = dropInfo => {
+    this.props.imDropped(dropInfo);
   };
 
   render() {
@@ -70,7 +58,11 @@ class Classifier extends Component {
           uploadImage={this.uploadImage}
           checkImWidth={this.checkImWidth}          
         />
-        <ImageGrid images={this.props.images} maxImWidth={this.state.biggestImage}/>
+        <ImageGrid 
+          images={this.props.images} 
+          maxImWidth={this.state.biggestImage}
+          drop={this.handleImageDrop}
+        />
       </div>
     );
   }
@@ -88,7 +80,8 @@ const mapDispatchToProps = dispatch => {
     addCategory: () => dispatch({ type: "ADD_CATEGORY"}),
     changeCatName: (new_name, id) => dispatch({ type: "CHANGE_CAT_NAME", name: new_name, id: id}),
     deleteCat: (id) => dispatch({type: "DELETE_CAT", id: id}),
-    uploadImage: (image) => dispatch({type: "UPLOAD_IMAGE", imInfo: image})
+    uploadImage: (image) => dispatch({type: "UPLOAD_IMAGE", imInfo: image}),
+    imDropped: (dropInfo) => dispatch({type: "IM_DROPPED", dropInfo: dropInfo})
   };
 };
 

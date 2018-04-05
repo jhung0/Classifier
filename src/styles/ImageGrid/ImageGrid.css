@@ -6,6 +6,8 @@
     flex-Wrap: wrap;
     align-Content: flex-start;
     margin-Top: 5px;
+    flex-direction: row;
+
 }
 
 .card {
