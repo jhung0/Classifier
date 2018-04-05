@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import React, { Component } from "react";
+import SelectField from "material-ui/SelectField";
+import MenuItem from "material-ui/MenuItem";
 
 const styles = {
   customWidth: {
     width: 50,
     margin: 10
-  },
-
+  }
 };
 
 /**
@@ -17,13 +16,13 @@ const styles = {
  */
 export default class SelectFieldExampleSimple extends Component {
   state = {
-    value: 5,
+    value: 5
   };
 
-  handleChange = (event, index, value) =>{
-    this.setState({value});
-    this.props.changeNoFetch(value)
-  } 
+  handleChange = (event, index, value) => {
+    this.setState({ value });
+    this.props.changeNoFetch(value);
+  };
 
   render() {
     return (

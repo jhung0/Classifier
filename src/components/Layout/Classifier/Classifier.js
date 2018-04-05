@@ -1,120 +1,78 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Aux from '../../../hoc/Aux';
-import Toolbar from './Toolbar/Toolbar'
-import GridlistTop from './GridLists/GridListTop/GridListTop'
-import GridLists from './GridLists/GridLists'
-import Constants from '../../Constants'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import classes from "../../../styles/Classifier/Classifier.css";
+import CategoryList from "./CategoryList/CategoryList";
+import ImageGrid from "./ImageGrid/ImageGrid";
 
+class Classifier extends Component {
+  state = {
+    uploadedPictures: [],
+    categories: [
+      {
+        uniqueId: 1,
+        name: "New category",
+        imgHashes: [],
+        color: "#FF4081"
+      }
+    ]
+  };
 
-class Classifier extends Component {  
-    
-    state = {
-        noFetch: 5,
-        uploadedPictures: [],
-        noPicsGrids: {
-            top: 0,
-            left: 0,
-            right: 0    
-        },
+  addButtonClicked = () => {
+    this.props.addCategory();
+  };
 
+  nameChangeHandler = (event) => {
+    this.props.changeCatName(event.target.value, event.target.id);
+  };
 
-        displayedPictures: {
-            top: [],
-            left: [],
-            right: []
-        }
+  deleteIconClicked = (event) => {
+    this.props.deleteCat(event.currentTarget.id)
+  };
 
+  handlePictureDrop = imInfo => {
+    // Check if element origin is same as drop target
+    if (imInfo.origin === imInfo.target) {
+      return null;
+    }
+    // Update image counter
+    this.props.decNoPicsGrid(imInfo.origin);
+    this.props.incNoPicsGrid(imInfo.target);
+    // Put image to different grid
+    this.props.changePicturePosition(
+      imInfo.origin,
+      imInfo.target,
+      imInfo.fileName
+    );
+  };
 
-
-    };
-
-    fetchButtonClicked = () => {
-        if(this.props.uploadedPictures.length === 0){
-            alert('Please select folder with pictures');
-            return
-        }    
-        if(this.props.uploadedPictures.length < this.props.noPicsGrids['top'] + Number(this.props.noFetch)){
-            alert('There are no more pictures in your uploaded folder');
-            this.props.changeNoPicsGrid('top', this.props.uploadedPictures.length)            
-            return
-        }
-        if( this.props.noPicsGrids['top'] + Number(this.props.noFetch) > Constants.MAX_NUMBER_PICTURES_GRID){
-            alert('You have reached the maximum number of displayable pictures');
-            this.props.changeNoPicsGrid('top', Constants.MAX_NUMBER_PICTURES_GRID)
-            return
-        }
-        let newNoPictures = this.props.noPicsGrids['top'] + Number(this.props.noFetch); 
-        let updatePicDisp = {...this.props.displayedPictures}
-        const target = this.props.uploadedPictures.slice(0, newNoPictures);
-        updatePicDisp.top = target 
-        this.props.updateDisplayedPictures(updatePicDisp)
-        this.props.changeNoPicsGrid('top', newNoPictures)
-    };
-
-    handlePictureDrop = (imInfo) => {
-        // Check if element origin is same as drop target
-        if(imInfo.origin === imInfo.target){
-            return null;
-        }
-        // Update image counter 
-        this.props.decNoPicsGrid(imInfo.origin)
-        this.props.incNoPicsGrid(imInfo.target)
-        // Put image to different grid
-        this.props.changePicturePosition(imInfo.origin, imInfo.target, imInfo.fileName)
-    };
-
-    render () {
-        return (
-            <Aux>
-
-
-                <div style={{ position: 'fixed',top: 60,left: 0, width: '100%'}}>
-                    <Toolbar
-                        fetchButtonClicked={this.fetchButtonClicked}
-                        uploadPicture={this.props.uploadPicture}
-                        changeNoFetch={this.props.changeNoFetch}
-                    />
-                    
-                    <GridlistTop
-                        noPicturesDisplayed={this.props.noPicsGrids.top}
-                        displayedPictures={this.props.displayedPictures.top}
-                        handlePictureDrop={this.handlePictureDrop}   
-
-                    />
-                     <GridLists 
-                    noPicturesDisplayed={this.props.noPicsGrids['top']}
-                    handlePictureDrag={this.handlePictureDrop}                
-                    displayedPictures={this.props.displayedPictures}
-                />
-                </div>
-
-                 
-
-            </Aux>
-        );
-    };
-};
+  render() {
+    return (
+      <div className={classes.wrapper}>
+        <CategoryList
+          categories={this.props.categories}
+          clicked={this.addButtonClicked}
+          changed={this.nameChangeHandler}
+          delete={this.deleteIconClicked}
+        />
+        <ImageGrid />
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = state => {
-    return {
-        noFetch: state.noFetch,
-        noPicsGrids: state.noPicsGrids,
-        uploadedPictures: state.uploadedPictures,
-        displayedPictures: state.displayedPictures,
-    };    
+  return {
+    uploadedPictures: state.uploadedPictures,
+    categories: state.categories
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-   return {
-        changeNoFetch: (no) => dispatch({type: 'CHANGE_NO_FETCH', val: no}),
-        changeNoPicsGrid: (gridName, no) => dispatch({type: 'CHANGE_NO_PICS_GRID', grid: gridName, val: no}),
-        incNoPicsGrid: (gridName) => dispatch({type: 'INC_NO_PICS_GRID', grid: gridName}),
-        decNoPicsGrid: (gridName) => dispatch({type: 'DEC_NO_PICS_GRID', grid: gridName}),
-        uploadPicture: (img) => dispatch({type: 'UPLOAD_PICTURE', image: img}),
-        updateDisplayedPictures: (updatedState) => dispatch({type: 'UPDATE_DISP_PICS', updated: updatedState}),
-        changePicturePosition: (origin=null, target=null, filePath=null) => dispatch({type: 'CHANGE_PICTURE_POSITION', origin: origin, target: target, filePath: filePath})
-   };
+  return {
+    addCategory: () => dispatch({ type: "ADD_CATEGORY"}),
+    changeCatName: (new_name, id) => dispatch({ type: "CHANGE_CAT_NAME", name: new_name, id: id}),
+    deleteCat: (id) => dispatch({type: "DELETE_CAT", id: id})
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Classifier);

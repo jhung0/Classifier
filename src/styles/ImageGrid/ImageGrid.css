@@ -1,0 +1,12 @@
+.root {
+    width: 75%;
+    height: 90%;
+    overflow-X: hidden;
+    display: flex;
+    flex-Wrap: wrap;
+    align-Content: flex-start;
+    margin-Top: 5px
+}
+
+
+

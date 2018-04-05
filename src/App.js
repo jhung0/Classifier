@@ -12,8 +12,9 @@ class App extends Component {
   render () {
     
     const muiTheme = getMuiTheme({
-      appBar: {
+      toolbar: {
         height: 60,
+        backgroundColor: 'rgb(0, 188, 212)'
       },
     });
     

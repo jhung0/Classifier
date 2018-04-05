@@ -1,16 +1,30 @@
-import React from 'react';
-import AppBar from 'material-ui/AppBar';
-import Cake from 'material-ui/svg-icons/social/cake';
-import IconButton from 'material-ui/IconButton';
-
+import React from "react";
+import classes from "../../../../styles/Appbar/Appbar.css"
+import { Toolbar, ToolbarGroup, ToolbarTitle } from "material-ui/Toolbar";
+import RaisedButton from "material-ui/RaisedButton";
 
 const AppBarExampleIcon = () => {
-    return(
-        <AppBar style={{ position: 'fixed',top: 0,left: 0, width: '100%'}}
-            title=" Cell Classifier"
-            iconElementLeft={<IconButton><Cake/></IconButton>}
-        />        
-    )
+  return (
+    <Toolbar
+      className={classes.root}
+      title="CYTO AI"
+    >
+      <ToolbarGroup>
+        <ToolbarTitle text="CYTO AI" />
+        <RaisedButton
+          label="Run"
+          backgroundColor="#FFAB00"
+          style={{ width: "100px" }}
+        />
+
+        <RaisedButton
+          label="Export"
+          secondary={true}
+          style={{ width: "100px" }}
+        />
+      </ToolbarGroup>
+    </Toolbar>
+  );
 };
 
-export default  AppBarExampleIcon;
+export default AppBarExampleIcon;
