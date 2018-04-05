@@ -6,14 +6,16 @@ import Avatar from "material-ui/Avatar";
 import DeleteIcon from "material-ui/svg-icons/action/delete";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
+import FileInput from "./FileInput/FileInput";
 
 const CategoryList = props => {
   return (
     <div className={classes.root}>
+      <FileInput upload={props.uploadImage} checkWidth={props.checkImWidth}/>
       <List>
         {props.categories.map(category => (
           <ListItem
-            key={category.uniqueId}
+            key={category.id}
             leftAvatar={
               <Avatar
                 style={{ position: "absolute", top: "16px" }}
@@ -21,13 +23,14 @@ const CategoryList = props => {
               />
             }
             rightIconButton={
-              <DeleteIcon id={category.uniqueId} onClick={(e)=>{props.delete(e)}}style={{ position: "absolute", top: "27px", marginRight: '10px' }} />
+              <DeleteIcon id={category.id} onClick={(e)=>{props.delete(e)}}style={{ position: "absolute", top: "27px", marginRight: '10px' }} />
             }
           >
             <TextField
+              value={category.name}
               onChange={(e)=>{props.changed(e)}}
-              id={category.uniqueId.toString()}
-              key={category.uniqueId + "TextField"}
+              id={category.id.toString()}
+              key={category.id + "TextField"}
               style={{ width: "80%", height: "37px", marginLeft: "20px" }}
             />   
           </ListItem>

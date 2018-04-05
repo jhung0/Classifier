@@ -20,7 +20,6 @@ const styles = {
 
 class Input extends Component {
     
-    
     // Reads data from input 
     handleChange = (files) => {
         let my = this
@@ -29,19 +28,28 @@ class Input extends Component {
           const reader = new FileReader();
           const image = files[i];
           // Closure to capture the file information.
-          reader.onload = (function(theFile,my) {
+          reader.onload = (function(theFile, my) {
                               const fileName = theFile.webkitRelativePath;
                               return function(e) {
-                                const imData = {fileName: fileName, src: e.target.result, index: i};
-                                my.props.uploadPicture(imData)
+                                var img = new Image;
+                                img.onload = function() {
+                                  my.props.checkWidth(img.width);
+                                  //console.log("The width of the image is " + img.width + "px.");
+                                };
+                                img.src = e.target.result;
+
+
+                                const imData = {fileName: fileName, src: e.target.result};
+                                my.props.upload(imData)
+                              
                               };
           })(image, my);
         // Read in the image file as a data URL.
         reader.readAsDataURL(image);
         };
-      };       
-         
-        
+      };   
+
+   
     _addDirectory(node) {
         if (node) {
           node.directory = true;

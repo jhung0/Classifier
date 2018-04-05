@@ -5,8 +5,22 @@
     display: flex;
     flex-Wrap: wrap;
     align-Content: flex-start;
-    margin-Top: 5px
+    margin-Top: 5px;
 }
 
+.card {
+   /* -webkit-box-shadow: 2px 2px 11px -1px rgba(0,0,0,0.73);
+    -moz-box-shadow: 2px 2px 11px -1px rgba(0,0,0,0.73);
+    box-shadow: 2px 2px 11px -1px rgba(0,0,0,0.73);*/
+    border: 1px solid #C8C8C8
 
+}
+
+.card2 {
+    /* -webkit-box-shadow: 2px 2px 11px -1px rgba(0,0,0,0.73);
+     -moz-box-shadow: 2px 2px 11px -1px rgba(0,0,0,0.73);
+     box-shadow: 2px 2px 11px -1px rgba(0,0,0,0.73);*/
+     border-top: 1px solid #D8E0E0
+ 
+ }
 

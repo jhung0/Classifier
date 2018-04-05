@@ -1,10 +1,11 @@
 import Constants from "../components/Constants.js";
+import hash from 'string-hash'
 
 const initalState = {
-  uploadedPictures: [],
+  images: {},
   categories: [
     {
-      uniqueId: 0,
+      id: 0,
       name: "New category",
       imgHashes: [],
       color: "#FF4081"
@@ -15,14 +16,15 @@ const initalState = {
 
 const reducer = (state = initalState, action) => {
   switch (action.type) {
+    
     case "ADD_CATEGORY":
       let categoriesCopy = [...state.categories];
       const noCats = state.noAddedCats + 1;
       const new_unique_id = noCats;
       const newCat = {
-        uniqueId: new_unique_id,
+        id: new_unique_id,
         name: "New category",
-        imgHashes: [],
+        imIds: [],
         color: Constants.CATEGORY_COLORS[noCats]
       };
       categoriesCopy.push(newCat);
@@ -31,22 +33,28 @@ const reducer = (state = initalState, action) => {
     case "CHANGE_CAT_NAME":
       let categories = [...state.categories];
       for (let i in state.categories) {
-        if (categories[Number(i)].uniqueId.toString() === action.id) {
+        if (categories[Number(i)].id.toString() === action.id) {
           categories[Number(i)].name = action.name;
           return { ...state, categories: categories };
         }
       }
-      break;
+      break
 
     case "DELETE_CAT":
       let allCategories = [...state.categories];
       for (let j in allCategories) {
-        if (allCategories[Number(j)].uniqueId.toString() === action.id) {
+        if (allCategories[Number(j)].id.toString() === action.id) {
           allCategories.splice(j, 1);
           return { ...state, categories: allCategories };
         }
       }
-      return { ...state };
+      break
+
+    case "UPLOAD_IMAGE":
+      let imagesCopy = {...state.images};
+      const id = hash(action.imInfo.src)
+      imagesCopy[id] = {...action.imInfo, accuracy: null, category: null}
+      return { ...state, images: imagesCopy };
 
     default:
       return state;

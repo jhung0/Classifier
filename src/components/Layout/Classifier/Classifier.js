@@ -6,15 +6,16 @@ import ImageGrid from "./ImageGrid/ImageGrid";
 
 class Classifier extends Component {
   state = {
-    uploadedPictures: [],
+    images: {},
     categories: [
       {
-        uniqueId: 1,
+        id: 1,
         name: "New category",
-        imgHashes: [],
+        imIds: [],
         color: "#FF4081"
       }
-    ]
+    ],
+    biggestImage: 0,
   };
 
   addButtonClicked = () => {
@@ -26,8 +27,21 @@ class Classifier extends Component {
   };
 
   deleteIconClicked = (event) => {
-    this.props.deleteCat(event.currentTarget.id)
+    this.props.deleteCat(event.currentTarget.id);
   };
+
+  uploadImage = (image) => {
+    this.props.uploadImage(image);
+  };
+
+  checkImWidth = (width) => {
+    console.log(width)
+    if(width > this.state.biggestImage){
+      this.setState({biggestImage: width})
+    }
+    console.log(this.state.biggestImage)
+  };
+
 
   handlePictureDrop = imInfo => {
     // Check if element origin is same as drop target
@@ -53,8 +67,10 @@ class Classifier extends Component {
           clicked={this.addButtonClicked}
           changed={this.nameChangeHandler}
           delete={this.deleteIconClicked}
+          uploadImage={this.uploadImage}
+          checkImWidth={this.checkImWidth}          
         />
-        <ImageGrid />
+        <ImageGrid images={this.props.images} maxImWidth={this.state.biggestImage}/>
       </div>
     );
   }
@@ -62,7 +78,7 @@ class Classifier extends Component {
 
 const mapStateToProps = state => {
   return {
-    uploadedPictures: state.uploadedPictures,
+    images: state.images,
     categories: state.categories
   };
 };
@@ -71,7 +87,8 @@ const mapDispatchToProps = dispatch => {
   return {
     addCategory: () => dispatch({ type: "ADD_CATEGORY"}),
     changeCatName: (new_name, id) => dispatch({ type: "CHANGE_CAT_NAME", name: new_name, id: id}),
-    deleteCat: (id) => dispatch({type: "DELETE_CAT", id: id})
+    deleteCat: (id) => dispatch({type: "DELETE_CAT", id: id}),
+    uploadImage: (image) => dispatch({type: "UPLOAD_IMAGE", imInfo: image})
   };
 };
 
