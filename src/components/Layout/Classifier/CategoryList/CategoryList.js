@@ -11,8 +11,8 @@ const CategoryList = props => {
     <div className={classes.root}>
       <FileInput upload={props.uploadImage} checkWidth={props.checkImWidth}/>
       <List>
-        {props.categories.map(category => (    
-          <CategoryItem category={category} changed={props.changed} clicked={props.clicked} delete={props.delete}/>
+        {props.categories.map((category, index) => (    
+          <CategoryItem key={index + "CatItem"} category={category} changed={props.changed} clicked={props.clicked} delete={props.delete}/>
         ))}
 
         <FloatingActionButton mini={true} disabled={false} style={{ position: "relative", left: "45%", margin: "5px" }} onClick={()=> {props.clicked()}}>

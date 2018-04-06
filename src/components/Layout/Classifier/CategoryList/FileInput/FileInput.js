@@ -64,6 +64,7 @@ class Input extends Component {
                 label="Select Folder"
                 labelPosition="before"
                 containerElement="label"
+                style={{width:"100%"}}
             >
                 <input 
                     style={styles.exampleImageInput}

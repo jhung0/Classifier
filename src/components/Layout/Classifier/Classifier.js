@@ -19,9 +19,7 @@ class Classifier extends Component {
   };
 
   addButtonClicked = () => {
-    console.log(this.props.categories)
     this.props.addCategory();
-    console.log(this.props.categories)
   };
 
   nameChangeHandler = (event) => {
@@ -30,6 +28,7 @@ class Classifier extends Component {
 
   deleteIconClicked = (event) => {
     this.props.deleteCat(event.currentTarget.id);
+    
   };
 
   uploadImage = (image) => {
@@ -48,6 +47,7 @@ class Classifier extends Component {
   };
 
   render() {
+
     return (
       <div className={classes.wrapper}>
         <CategoryList

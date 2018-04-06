@@ -6,7 +6,6 @@ import { Provider } from "react-redux";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import reducer from "./store/reducer";
-import { persistStore } from 'redux-persist'
 
 
 
