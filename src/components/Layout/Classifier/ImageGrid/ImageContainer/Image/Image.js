@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { DragSource } from "react-dnd";
-//import './image.css'
-import ItemTypes from "../../../../ItemTypes";
+import ItemTypes from "../../../../../ItemTypes";
 
 const imSource = {
   beginDrag(props) {
@@ -9,7 +8,6 @@ const imSource = {
       id: props.id,
       category: props.category
     };
-    //console.log(props)
   },
 
   endDrag(props, monitor, component) {
@@ -49,6 +47,10 @@ class Image extends Component {
     mythis.setState({ hovering: false });
   }
 
+  shouldComponentUpdate (nextProps, nextState){
+    return false
+  }
+
   render() {
     const { connectDragSource } = this.props;
     return connectDragSource(
@@ -57,7 +59,7 @@ class Image extends Component {
         //onMouseOut={() => this.unhover(this)}
         id={this.props.id}
         src={this.props.src}
-        category={this.props.category}
+        category={this.props.accuracy}
         width={"100%"}
         alt={"Ups"}
         style={{ height: "auto", marginRight: "5px", marginBottom: "35px" }}

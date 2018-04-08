@@ -17,8 +17,13 @@ const styles = {
     },
   };
 
+let myarray = [];
+
 
 class Input extends Component {
+    
+    variables = []
+
     
     // Reads data from input 
     handleChange = (files) => {
@@ -37,9 +42,13 @@ class Input extends Component {
                                   //console.log("The width of the image is " + img.width + "px.");
                                 };
                                 img.src = e.target.result;
-
-
+                                
                                 const imData = {fileName: fileName, src: e.target.result};
+                                //my.variables.push(imData)
+                                //console
+                                
+                                //my.myarray.push(imData) 
+                                //console.log(imData)
                                 my.props.upload(imData)
                               
                               };
@@ -47,6 +56,9 @@ class Input extends Component {
         // Read in the image file as a data URL.
         reader.readAsDataURL(image);
         };
+        //console.log()
+        //my.props.upload(this.variables)
+        
       };   
 
    
