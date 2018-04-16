@@ -17,14 +17,10 @@ const styles = {
     },
   };
 
-let myarray = [];
-
 
 class Input extends Component {
-    
-    variables = []
+      
 
-    
     // Reads data from input 
     handleChange = (files) => {
         let my = this
@@ -39,26 +35,16 @@ class Input extends Component {
                                 var img = new Image;
                                 img.onload = function() {
                                   my.props.checkWidth(img.width);
-                                  //console.log("The width of the image is " + img.width + "px.");
                                 };
                                 img.src = e.target.result;
-                                
-                                const imData = {fileName: fileName, src: e.target.result};
-                                //my.variables.push(imData)
-                                //console
-                                
-                                //my.myarray.push(imData) 
-                                //console.log(imData)
+                                const imData = {fileName: fileName, src: e.target.result, propability: null, category: null, color: "FFFFFF"};
                                 my.props.upload(imData)
-                              
-                              };
+                              };                  
           })(image, my);
         // Read in the image file as a data URL.
         reader.readAsDataURL(image);
-        };
-        //console.log()
-        //my.props.upload(this.variables)
-        
+       }; 
+       
       };   
 
    

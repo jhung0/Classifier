@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import classes from "../../../styles/Classifier/Classifier.css";
 import CategoryList from "./CategoryList/CategoryList";
 import ImageGrid from "./ImageGrid/ImageGrid";
+import {getImData} from "../../../APIs/API"
 
 
 // This class is the container for all components regarding the classifier
@@ -43,13 +44,12 @@ class Classifier extends Component {
     }
   };
 
-
   handleImageDrop = dropInfo => {
     this.props.imDropped(dropInfo);
   };
 
   render() {
-
+    getImData()
     return (
       <div className={classes.wrapper}>
     
@@ -84,7 +84,7 @@ const mapDispatchToProps = dispatch => {
     addCategory: () => dispatch({ type: "ADD_CATEGORY"}),
     changeCatName: (new_name, id) => dispatch({ type: "CHANGE_CAT_NAME", name: new_name, id: id}),
     deleteCat: (id) => dispatch({type: "DELETE_CAT", id: id}),
-    uploadImage: (image) => dispatch({type: "UPLOAD_IMAGE", imInfo: image}),
+    uploadImage: (image) => dispatch({type: "UPLOAD_IMAGE", img: image}),
     imDropped: (dropInfo) => dispatch({type: "IM_DROPPED", dropInfo: dropInfo})
   };
 };

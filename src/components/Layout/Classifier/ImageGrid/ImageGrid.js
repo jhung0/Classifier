@@ -13,7 +13,9 @@ class ImageGrid extends Component {
     const images = this.props.images;
     return (
       <div className={classes.root}>
-        {Object.keys(images).map((key, index) => (
+        {Object.keys(images).map((key, index) => {
+
+          return(
           <ImageContainer
             id={key}
             key={key}
@@ -21,7 +23,7 @@ class ImageGrid extends Component {
             width={this.props.maxImWidth}
             drop={this.props.drop}
           />
-        ))}
+        )})}
       </div>
     );
   }

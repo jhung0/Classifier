@@ -77,8 +77,8 @@ const reducer = (state = initalState, action) => {
     // Executed when folder was selected
     case "UPLOAD_IMAGE":
       imageCopy = {...state.images};
-      const id = hash(action.imInfo.src)
-      imageCopy[id] = {...action.imInfo, accuracy: null, category: null, color: "FFFFFF"}
+      const id = hash(action.img.src)
+      imageCopy[id] = {...action.img, id: id}
       return { ...state, images: imageCopy};
 
     // Executed when IM was dropped on category
