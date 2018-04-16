@@ -3,19 +3,11 @@ import Aux from "../../../../../hoc/Aux";
 import classes from "../../../../../styles/ImageGrid/ImageGrid.css";
 import Img from "./Image/Image";
 
+
+// This component includes the image and attaches a small bar under the image
+
 class ImageContainer extends Component {
   
-  
-  componentWillReceiveProps(nextProps){
-    //console.log(nextProps)
-  }
-  
-  shouldComponentUpdate (nextProps, nextState){
-    return true
-    //return nextProps !== this.props;
-    
-  }
-
   render() {
     return (
       <Aux>

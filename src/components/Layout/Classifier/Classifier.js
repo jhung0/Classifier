@@ -4,6 +4,8 @@ import classes from "../../../styles/Classifier/Classifier.css";
 import CategoryList from "./CategoryList/CategoryList";
 import ImageGrid from "./ImageGrid/ImageGrid";
 
+
+// This class is the container for all components regarding the classifier
 class Classifier extends Component {
   state = {
     images: {},
@@ -50,6 +52,7 @@ class Classifier extends Component {
 
     return (
       <div className={classes.wrapper}>
+    
         <CategoryList
           categories={this.props.categories}
           clicked={this.addButtonClicked}
@@ -67,7 +70,7 @@ class Classifier extends Component {
     );
   }
 }
-
+// Map container props to states
 const mapStateToProps = state => {
   return {
     images: state.images,
@@ -75,6 +78,7 @@ const mapStateToProps = state => {
   };
 };
 
+// This method links all redux reducers to actions
 const mapDispatchToProps = dispatch => {
   return {
     addCategory: () => dispatch({ type: "ADD_CATEGORY"}),

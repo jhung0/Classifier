@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { DragSource } from "react-dnd";
 import ItemTypes from "../../../../../ItemTypes";
 
+//  This will pass the returned functions to your component as props
 const imSource = {
   beginDrag(props) {
     return {
@@ -10,6 +11,7 @@ const imSource = {
     };
   },
 
+// When the dragging stops, endDrag is called
   endDrag(props, monitor, component) {
     if (monitor.didDrop()) {
       const catId = monitor.getDropResult().targetCat;
@@ -23,12 +25,15 @@ const imSource = {
   }
 };
 
+// This function should return a plain object of the props to inject into your component.
 function collect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
   };
 }
+
+// This component is the image itself
 
 class Image extends Component {
   state = {
@@ -50,6 +55,7 @@ class Image extends Component {
   shouldComponentUpdate (nextProps, nextState){
     return false
   }
+
 
   render() {
     const { connectDragSource } = this.props;

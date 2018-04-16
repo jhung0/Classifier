@@ -22,7 +22,7 @@ const reducer = (state = initalState, action) => {
   let colorCopy = null
   
   switch (action.type) {
-    
+    // Executed when ADD Button clicked 
     case "ADD_CATEGORY":
       categoriesCopy = [...state.categories];
       const noCats = state.noAddedCats + 1;
@@ -36,6 +36,7 @@ const reducer = (state = initalState, action) => {
       categoriesCopy.push(newCat);
       return { ...state, categories: categoriesCopy, noAddedCats: noCats };
 
+    // Executed when category name is changed
     case "CHANGE_CAT_NAME":
       categoriesCopy = [...state.categories];
       for (let i in categoriesCopy) {
@@ -46,6 +47,7 @@ const reducer = (state = initalState, action) => {
       }
       break
 
+    // Executed when delete button is clicked
     case "DELETE_CAT":
       categoriesCopy = [...state.categories];
       imageCopy = {...state.images};
@@ -71,14 +73,15 @@ const reducer = (state = initalState, action) => {
       }
       break
       
-      
-
+    
+    // Executed when folder was selected
     case "UPLOAD_IMAGE":
       imageCopy = {...state.images};
       const id = hash(action.imInfo.src)
       imageCopy[id] = {...action.imInfo, accuracy: null, category: null, color: "FFFFFF"}
       return { ...state, images: imageCopy};
 
+    // Executed when IM was dropped on category
     case "IM_DROPPED":
       categoriesCopy = [...state.categories];
       for (let i in state.categories) {

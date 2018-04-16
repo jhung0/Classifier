@@ -1,18 +1,6 @@
 import React from "react";
-import classes from "../../../../styles/Appbar/Appbar.css"
 import { Toolbar, ToolbarGroup, ToolbarTitle } from "material-ui/Toolbar";
 import RaisedButton from "material-ui/RaisedButton";
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-
-import IconMenu from 'material-ui/IconMenu';
-
-
-import FontIcon from 'material-ui/FontIcon';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-import MenuItem from 'material-ui/MenuItem';
-
-import { ToolbarSeparator} from 'material-ui/Toolbar';
 
 
 const AppBarExampleIcon = () => {
@@ -45,8 +33,6 @@ const AppBarExampleIcon = () => {
           style={{ width: "100px" }}
         />
       </ToolbarGroup>
-
-   
 
     </Toolbar>
   );

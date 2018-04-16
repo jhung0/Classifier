@@ -6,6 +6,7 @@ import TextField from "material-ui-next/TextField";
 import Avatar from "material-ui/Avatar";
 import DeleteIcon from "material-ui/svg-icons/action/delete";
 
+// Called when a compatible item is dropped on the target. 
 const gridTarget = {
   drop(props, monitor, component) {
       return {
@@ -14,6 +15,7 @@ const gridTarget = {
   }
 };
 
+// This function should return a plain object of the props to inject into your component.
 function collect(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
@@ -21,6 +23,7 @@ function collect(connect, monitor) {
   };
 }
 
+// This compent is the category item
 class CategoryItem extends Component {
   
   render() {
