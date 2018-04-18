@@ -5,10 +5,7 @@ import ImageContainer from "./ImageContainer/ImageContainer";
 // This component is the image grid in which all images are rendered
 
 class ImageGrid extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.images !== this.props.images;
-  }
-
+  
   render() {
     const images = this.props.images;
     return (

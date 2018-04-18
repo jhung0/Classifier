@@ -18,9 +18,10 @@ const styles = {
   };
 
 
-class Input extends Component {
-      
 
+class Input extends Component {
+    
+    
     // Reads data from input 
     handleChange = (files) => {
         let my = this
@@ -32,22 +33,22 @@ class Input extends Component {
           reader.onload = (function(theFile, my) {
                               const fileName = theFile.webkitRelativePath;
                               return function(e) {
-                                var img = new Image;
+                                var img = new Image();
                                 img.onload = function() {
                                   my.props.checkWidth(img.width);
                                 };
-                                img.src = e.target.result;
-                                const imData = {fileName: fileName, src: e.target.result, propability: null, category: null, color: "FFFFFF"};
+                                img.src = e.target.result;                 
+                                const imData = {fileName: fileName, src: e.target.result};           
                                 my.props.upload(imData)
-                              };                  
+                              
+                              };
           })(image, my);
         // Read in the image file as a data URL.
         reader.readAsDataURL(image);
-       }; 
-       
+        };
+ 
       };   
 
-   
     _addDirectory(node) {
         if (node) {
           node.directory = true;
