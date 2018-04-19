@@ -3,17 +3,34 @@ import Aux from "../../../../../hoc/Aux";
 import classes from "../../../../../styles/ImageGrid/ImageGrid.css";
 import Img from "./Image/Image";
 
-
 // This component includes the image and attaches a small bar under the image
 
 class ImageContainer extends Component {
-  
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selected: false
+    };
+
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick(event) {
+    event.preventDefault();
+
+    this.setState(prevState => ({
+      selected: !prevState.selected
+    }));
+  }
+
   render() {
     return (
       <Aux>
         <div
           key={this.props.id + "Wrapper"}
           className={classes.card}
+          onClick={this.onClick}
           style={{
             position: "relative",
             width: this.props.width < 300 ? this.props.width : "30%",
