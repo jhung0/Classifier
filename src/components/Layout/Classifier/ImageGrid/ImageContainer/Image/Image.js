@@ -16,8 +16,10 @@ const imSource = {
     if (monitor.didDrop()) {
       const catId = monitor.getDropResult().targetCat;
       const imageId = Number(props.id);
+      const oldCatId = props.category
       const dropInfo = {
         catId: catId,
+        oldCatId: oldCatId,
         imageId: imageId
       };
       component.imageHandlePictureDrop(dropInfo);

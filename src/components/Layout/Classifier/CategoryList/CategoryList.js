@@ -9,10 +9,6 @@ import CategoryItem from "./CategoryItem/CategoryItem"
 // This components holds all categories 
 class CategoryList extends Component{
   
-  shouldComponentUpdate (nextProps, nextState){
-    return nextProps.categories.length !== this.props.categories.length;
-  }
-  
   render (){
   return (
     <div className={classes.root}>

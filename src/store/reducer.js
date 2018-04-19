@@ -6,6 +6,7 @@ const initalState = {
   categories: [
     {
       id: 0,
+      counter: 0,
       name: "New category",
       imgHashes: [],
       color: "#FF4081"
@@ -20,6 +21,7 @@ const reducer = (state = initalState, action) => {
   let categoriesCopy = null
   let imageCopy = null
   let colorCopy = null
+  let color = null
   
   switch (action.type) {
     // Executed when ADD Button clicked 
@@ -29,6 +31,7 @@ const reducer = (state = initalState, action) => {
       const new_unique_id = noCats;
       const newCat = {
         id: new_unique_id,
+        counter: 0,
         name: "New category",
         imgHashes: [],
         color: state.catColors[noCats]
@@ -64,7 +67,6 @@ const reducer = (state = initalState, action) => {
               let imId = category.imgHashes[j]
               imageCopy[imId].color = "#FFFFFF"
               imageCopy[imId].category = null
-
             }
           }
           categoriesCopy.splice(i, 1);
@@ -78,24 +80,41 @@ const reducer = (state = initalState, action) => {
     case "UPLOAD_IMAGE":
       imageCopy = {...state.images};
       const id = hash(action.img.src)
-      imageCopy[id] = {...action.img, id: id}
+      imageCopy[id] = {...action.img, id: id, color: "#FFFFFF", category: null }
+      console.log(state)
       return { ...state, images: imageCopy};
 
     // Executed when IM was dropped on category
     case "IM_DROPPED":
       categoriesCopy = [...state.categories];
-      for (let i in state.categories) {
-        if (categoriesCopy[i].id === action.dropInfo.catId) {
-          imageCopy = {...state.images};
+      imageCopy = {...state.images};
+      
+      // Check if picture is already in that category
+      if (action.dropInfo.catId !== action.dropInfo.oldCatId){
+        for (let i in state.categories) {
           
-          let color = categoriesCopy[i].color
-          imageCopy[action.dropInfo.imageId].color = color;
-          imageCopy[action.dropInfo.imageId].category = action.dropInfo.catId;
-          categoriesCopy[i].imgHashes.push(action.dropInfo.imageId)
-          return { ...state, images: imageCopy, categories: categoriesCopy};
+         /* // Delete from old category
+         if (categoriesCopy[i].id === action.dropInfo.oldCatId){
+            categoriesCopy[i].imgHashes.find()
+
+
+          }
+
+          */
+          // Add to new category 
+          if (categoriesCopy[i].id === action.dropInfo.catId) {
+            color = categoriesCopy[i].color    
+            // Add ImageID to new category
+            categoriesCopy[i].imgHashes.push(action.dropInfo.imageId)
+            categoriesCopy[i].counter = categoriesCopy[i].counter + 1;
+            // Change image category and color
+            imageCopy[action.dropInfo.imageId].color = color;
+            imageCopy[action.dropInfo.imageId].category = action.dropInfo.catId; 
+            return { ...state, images: imageCopy, categories: categoriesCopy};
+ 
+          }
         }
       }
-    break
 
     default:
       return state;

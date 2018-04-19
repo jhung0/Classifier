@@ -34,12 +34,19 @@ class CategoryItem extends Component {
     }
     return connectDropTarget(
       <div>
+
         <ListItem
           style={{backgroundColor:  backgroundColor}}
           key={this.props.category.id}
-          leftAvatar={ <Avatar style={{ position: "absolute", top: "16px" }} backgroundColor={this.props.category.color !== "#FFFFF" ? this.props.category.color : "#CCCC"}/>}
+          leftAvatar={ <Avatar style={{ position: "absolute", top: "16px" }} backgroundColor={this.props.category.color !== "#FFFFF" ? this.props.category.color : "#CCCC"}>
+                        <div>
+                          <p style={{position: "absolute", top: "-67px", left: "40px", lineHeight: 7, fontSize: "15px", color: "#757575", zIndex: 1}}> {this.props.category.counter} </p> 
+                        </div>
+                        </Avatar>
+          }
           rightIconButton={ <DeleteIcon id={this.props.category.id} onClick={(e)=>{this.props.delete(e)}}style={{ position: "absolute", top: "27px", marginRight: '10px' }} />}
         >
+       
           <TextField value={this.props.category.name} onChange={(e)=>{this.props.changed(e)}} id={this.props.category.id.toString()} key={this.props.category.id + "TextField"} style={{ width: "80%", height: "37px", marginLeft: "20px" }}/>   
         </ListItem>
       </div>
