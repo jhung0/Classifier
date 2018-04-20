@@ -1,4 +1,5 @@
 import store from "../index"
+import * as data from "../training/dataset"
 
 const getImData  = ()  => {
   if(store == null){
@@ -11,16 +12,24 @@ const getImData  = ()  => {
       img.src = image.src; 
       img.id = image.id;
       img.catId = image.category
-      return imgTags
+      return img;
     });
+    return imgTags;
   }
-  return 
+  return;
 }
 
 
 const trainOnRun = (imgData) => {
-  console.log("Hello world")
-  console.log(getImData())
+  //var imgArray= getImData();
+  //for (var i of imgArray){
+    //console.log(i);
+    //console.log(i.id, " : ", i.catId);
+  //}
+  var dataset = new data.Dataset();
+
+  dataset.loadFromArray(getImData());
+
   return null
 } 
 
