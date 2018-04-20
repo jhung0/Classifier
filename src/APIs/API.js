@@ -20,4 +20,11 @@ const getImData  = ()  => {
 }
 
 
+const trainOnRun = (imgData) => {
+
+  console.log("Hello World func.");
+
+}
+
+
 export {getImData};
