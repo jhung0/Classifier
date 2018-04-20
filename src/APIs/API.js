@@ -12,11 +12,19 @@ const getImData  = ()  => {
       img.src = image.src; 
       img.id = image.id;
       img.catId = image.category
+<<<<<<< HEAD
       return img;
     });
     return imgTags;
   }
   return;
+=======
+      return img
+    });
+    return imgTags
+
+  }
+>>>>>>> 657287b127c95f9abca51d4cd0997b11032c153d
 }
 
 
