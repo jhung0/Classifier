@@ -81,7 +81,6 @@ const reducer = (state = initalState, action) => {
       imageCopy = {...state.images};
       const id = hash(action.img.src)
       imageCopy[id] = {...action.img, id: id, color: "#FFFFFF", category: null }
-      console.log(state)
       return { ...state, images: imageCopy};
 
     // Executed when IM was dropped on category
@@ -94,17 +93,19 @@ const reducer = (state = initalState, action) => {
         for (let i in state.categories) {
           
          // Delete from old category
-         /*if (categoriesCopy[i].id === action.dropInfo.oldCatId){
-            categoriesCopy[i].imgHashes.find(function(element) {
-              return element > dropInfo.;
-            })
-
-
-          }*/
+         //console.log(categoriesCopy[i].id)
+         //console.log(action.dropInfo.oldCatId)
+        if (categoriesCopy[i].id === action.dropInfo.oldCatId){
+          //console.log(categoriesCopy[i].imgHashes)
+          const index = categoriesCopy[i].imgHashes.findIndex(function(imHash) {
+              return imHash === action.dropInfo.imageId;
+          })
+          categoriesCopy[i].imgHashes.splice(index, 1)
+          categoriesCopy[i].counter =  categoriesCopy[i].counter - 1;
+        }
 
           // Add to new category 
           if (categoriesCopy[i].id === action.dropInfo.catId) {
-            console.log(action.dropInfo)
             color = categoriesCopy[i].color    
             // Add ImageID to new category
             categoriesCopy[i].imgHashes.push(action.dropInfo.imageId)

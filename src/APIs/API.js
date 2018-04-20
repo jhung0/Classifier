@@ -1,6 +1,4 @@
 import store from "../index"
-import { ImageGradient } from "material-ui";
-
 
 const getImData  = ()  => {
   if(store == null){
