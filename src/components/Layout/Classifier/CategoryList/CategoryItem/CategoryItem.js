@@ -26,12 +26,9 @@ function collect(connect, monitor) {
 // This compent is the category item
 class CategoryItem extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      clicked: false,
-    };
-  }
+  state = {
+    clicked: false,
+  };
   
   render() {
     const {connectDropTarget, isOver} = this.props;
