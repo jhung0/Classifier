@@ -25,10 +25,20 @@ function collect(connect, monitor) {
 
 // This compent is the category item
 class CategoryItem extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      clicked: false,
+    };
+  }
   
   render() {
     const {connectDropTarget, isOver} = this.props;
     let backgroundColor = '#FFFFFF'
+    if (this.state.clicked) {
+      backgroundColor = '#C8C8C8'
+    }
     if (isOver) {
         backgroundColor = '#B9F6CA'
     }
@@ -36,7 +46,7 @@ class CategoryItem extends Component {
       <div>
 
         <ListItem
-          style={{backgroundColor:  backgroundColor}}
+          style={{backgroundColor: backgroundColor}}
           key={this.props.category.id}
           leftAvatar={ <Avatar style={{ position: "absolute", top: "16px" }} backgroundColor={this.props.category.color !== "#FFFFF" ? this.props.category.color : "#CCCC"}>
                         <div>
@@ -45,9 +55,16 @@ class CategoryItem extends Component {
                         </Avatar>
           }
           rightIconButton={ <DeleteIcon id={this.props.category.id} onClick={(e)=>{this.props.delete(e)}}style={{ position: "absolute", top: "27px", marginRight: '10px' }} />}
+          onClick={() => this.setState({clicked: !this.state.clicked})}
         >
        
-          <TextField value={this.props.category.name} onChange={(e)=>{this.props.changed(e)}} id={this.props.category.id.toString()} key={this.props.category.id + "TextField"} style={{ width: "80%", height: "37px", marginLeft: "20px" }}/>   
+          <TextField
+            value={this.props.category.name}
+            onChange={(e)=>{this.props.changed(e)}}
+            id={this.props.category.id.toString()}
+            key={this.props.category.id + "TextField"}
+            style={{ width: "80%", height: "37px", marginLeft: "20px" }}
+          />   
         </ListItem>
       </div>
     );
