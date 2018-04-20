@@ -1,6 +1,7 @@
 import React from "react";
 import { Toolbar, ToolbarGroup, ToolbarTitle } from "material-ui/Toolbar";
 import RaisedButton from "material-ui/RaisedButton";
+import * as API from "../../../../APIs/API"
 
 
 const AppBarExampleIcon = () => {
@@ -25,6 +26,8 @@ const AppBarExampleIcon = () => {
           label="Run"
           backgroundColor="#FFAB00"
           style={{ width: "100px" }}
+          onClick={() => {API.trainOnRun()}}
+
         />
 
         <RaisedButton

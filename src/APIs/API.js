@@ -18,4 +18,11 @@ const getImData  = ()  => {
 }
 
 
-export {getImData};
+const trainOnRun = (imgData) => {
+  console.log("Hello world")
+  console.log(getImData())
+  return null
+} 
+
+
+export {getImData, trainOnRun};
