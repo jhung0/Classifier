@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Aux from "../../../../../hoc/_Aux";
+import Aux from "../../../../hoc/_Aux";
 import classes from "../../../../../styles/ImageGrid/ImageGrid.css";
 import Img from "./Image/Image";
 
