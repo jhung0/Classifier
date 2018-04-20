@@ -11,10 +11,11 @@ const getImData  = ()  => {
       img.src = image.src; 
       img.id = image.id;
       img.catId = image.category
-      return imgTags
+      return img
     });
+    return imgTags
+
   }
-  return 
 }
 
 
