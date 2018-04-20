@@ -1,6 +1,4 @@
 import store from "../index"
-import { ImageGradient } from "material-ui";
-
 
 const getImData  = ()  => {
   if(store == null){
@@ -21,10 +19,10 @@ const getImData  = ()  => {
 
 
 const trainOnRun = (imgData) => {
+  console.log("Hello world")
+  console.log(getImData())
+  return null
+} 
 
-  console.log("Hello World func.");
 
-}
-
-
-export {getImData};
+export {getImData, trainOnRun};
