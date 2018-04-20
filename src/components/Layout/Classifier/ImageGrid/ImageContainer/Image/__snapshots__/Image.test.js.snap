@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<img
+  alt="Ups"
+  category={undefined}
+  id={undefined}
+  src={undefined}
+  style={
+    Object {
+      "height": "auto",
+      "marginBottom": "35px",
+      "marginRight": "5px",
+    }
+  }
+  width="100%"
+/>
+`;
