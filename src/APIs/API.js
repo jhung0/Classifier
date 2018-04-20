@@ -1,4 +1,5 @@
 import store from "../index"
+import { ImageGradient } from "material-ui";
 
 
 const getImData  = ()  => {
@@ -6,8 +7,16 @@ const getImData  = ()  => {
     return null
   }
   else{
-    return store.getState().images
+    let images = Object.values(store.getState().images)
+    const imgTags = images.map(image => {
+      var img = new Image();
+      img.src = image.src; 
+      img.id = image.id;
+      img.catId = image.category
+      return imgTags
+    });
   }
+  return 
 }
 
 

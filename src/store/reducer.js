@@ -93,28 +93,30 @@ const reducer = (state = initalState, action) => {
       if (action.dropInfo.catId !== action.dropInfo.oldCatId){
         for (let i in state.categories) {
           
-         /* // Delete from old category
-         if (categoriesCopy[i].id === action.dropInfo.oldCatId){
-            categoriesCopy[i].imgHashes.find()
+         // Delete from old category
+         /*if (categoriesCopy[i].id === action.dropInfo.oldCatId){
+            categoriesCopy[i].imgHashes.find(function(element) {
+              return element > dropInfo.;
+            })
 
 
-          }
+          }*/
 
-          */
           // Add to new category 
           if (categoriesCopy[i].id === action.dropInfo.catId) {
+            console.log(action.dropInfo)
             color = categoriesCopy[i].color    
             // Add ImageID to new category
             categoriesCopy[i].imgHashes.push(action.dropInfo.imageId)
             categoriesCopy[i].counter = categoriesCopy[i].counter + 1;
             // Change image category and color
             imageCopy[action.dropInfo.imageId].color = color;
-            imageCopy[action.dropInfo.imageId].category = action.dropInfo.catId; 
-            return { ...state, images: imageCopy, categories: categoriesCopy};
- 
+            imageCopy[action.dropInfo.imageId].category = action.dropInfo.catId;  
           }
         }
       }
+      return { ...state, images: imageCopy, categories: categoriesCopy};
+
 
     default:
       return state;
